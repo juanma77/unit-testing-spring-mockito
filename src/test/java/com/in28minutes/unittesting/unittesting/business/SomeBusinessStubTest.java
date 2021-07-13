@@ -7,12 +7,34 @@ import org.junit.Test;
 import com.in28minutes.unittesting.unittesting.data.SomeDataServiceInterface;
 
 // En esta clase utilizamos un servicio stub para obtener los datos 
-class SomeDataServiceStub implements SomeDataServiceInterface {
+class SomeDataServiceStubBasicScenario implements SomeDataServiceInterface {
 
 	@Override
 	public int[] retrieveAllData() {
 		
 		return new int [] { 1, 2, 3 };
+	}
+	
+
+}
+
+class SomeDataServiceStubEmptyScenario implements SomeDataServiceInterface {
+
+	@Override
+	public int[] retrieveAllData() {
+		
+		return new int [] { };
+	}
+	
+
+}
+
+class SomeDataServiceStubOneValueScenario implements SomeDataServiceInterface {
+
+	@Override
+	public int[] retrieveAllData() {
+		
+		return new int [] { 5 };
 	}
 	
 
@@ -27,10 +49,9 @@ public class SomeBusinessStubTest {
 	public void calculateSumUsingDataService_basicScenario() {
 		
 		SomeBusinessImpl someBusinessImpl = new SomeBusinessImpl();
+		someBusinessImpl.setSomeDataService( new SomeDataServiceStubBasicScenario() );
 		
-		someBusinessImpl.setSomeDataService( new SomeDataServiceStub() );
-		
-		int actualResult = someBusinessImpl.calculateSum( new int [] { 1, 2, 3 } ); 
+		int actualResult = someBusinessImpl.calculateSumUsingDataService();
 		int expectedResult = 6; 
 		
 		// En el assertEquals se manda el resultado esperado y el resultado actual 
@@ -42,8 +63,9 @@ public class SomeBusinessStubTest {
 	public void calculateSum_emptyScenario() {
 		
 		SomeBusinessImpl someBusinessImpl = new SomeBusinessImpl();
+		someBusinessImpl.setSomeDataService( new SomeDataServiceStubEmptyScenario() );
 		
-		int actualResult = someBusinessImpl.calculateSum( new int [] { } ); 
+		int actualResult = someBusinessImpl.calculateSumUsingDataService();
 		int expectedResult = 0; 
 		
 		// Se manda el resultado esperado y el resultado actual 
@@ -55,9 +77,10 @@ public class SomeBusinessStubTest {
 	public void calculateSum_oneValueScenario() {
 		
 		SomeBusinessImpl someBusinessImpl = new SomeBusinessImpl();
+		someBusinessImpl.setSomeDataService( new SomeDataServiceStubOneValueScenario() );
 		
-		int actualResult = someBusinessImpl.calculateSum( new int [] { 5 } ); 
-		int expectedResult = 5; 
+		int actualResult = someBusinessImpl.calculateSumUsingDataService();
+		int expectedResult = 5;
 		
 		// Se manda el resultado esperado y el resultado actual 
 		assertEquals( expectedResult, actualResult );		
