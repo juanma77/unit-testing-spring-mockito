@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import com.in28minutes.unittesting.unittesting.data.SomeDataServiceInterface;
 
-// En esta clase utilizamos un servicio stub para obtener los datos 
+// En las siguientes tres clases utilizamos un servicio stub para obtener los datos 
 class SomeDataServiceStubBasicScenario implements SomeDataServiceInterface {
 
 	@Override
